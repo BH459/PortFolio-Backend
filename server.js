@@ -61,24 +61,29 @@ app.post('/api/register', async (req, res) => {
     const newUser = new User({ Name, Email, Message });
     await newUser.save();
 
-    const adminEmailResult = await sendEmail({
-      to: 'technoempire921@gmail.com', // Your admin email
-      subject: 'New User Registration',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333;">New User Registration</h2>
-          <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px;">
-            <p><strong>Name:</strong> ${Name}</p>
-            <p><strong>Email:</strong> ${Email}</p>
-            <p><strong>Message:</strong></p>
-            <p style="background-color: white; padding: 10px; border-radius: 3px;">${Message}</p>
-          </div>
-          <p style="color: #666; font-size: 14px; margin-top: 20px;">
-            This notification was sent automatically when a new user registered.
-          </p>
+  const adminEmailResult = await sendEmail({
+  to: 'technoempire921@gmail.com',
+  subject: '🚀 New User Registration Alert!',
+  html: `
+    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(to bottom right, #4A90E2, #ffffff); padding: 30px;">
+      <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); overflow: hidden;">
+        <div style="background-color: #4A90E2; padding: 20px 30px;">
+          <h2 style="color: #ffffff; margin: 0;">New User Registration</h2>
         </div>
-      `
-    });
+        <div style="padding: 30px;">
+          <p style="font-size: 16px; color: #333;"><strong>Name:</strong> ${Name}</p>
+          <p style="font-size: 16px; color: #333;"><strong>Email:</strong> ${Email}</p>
+          <p style="font-size: 16px; color: #333;"><strong>Message:</strong></p>
+          <div style="background-color: #f1f1f1; padding: 15px; border-left: 4px solid #4A90E2; border-radius: 4px; margin-top: 10px; color: #555;">
+            ${Message}
+          </div>
+        </div>
+        <div style="padding: 20px 30px; background-color: #fafafa; text-align: center; font-size: 14px; color: #888;">
+          This notification was sent automatically when a new user registered.
+        </div>
+      </div>
+    </div>
+  `});
 
     res.status(201).json({
       status: 201,
