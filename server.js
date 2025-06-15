@@ -1,9 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { Resend } = require('resend');
+const path = require('path');
 const app = express();
 const cors = require('cors');
 require('dotenv').config({ path: './.env' });
+
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
+app.get('/pdf/resume', (req, res) => {
+  const filePath = path.join(__dirname, 'public', 'pdfs', 'resume.pdf');
+  res.sendFile(filePath);
+});
 
 // Initialize Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
